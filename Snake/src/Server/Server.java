@@ -7,6 +7,7 @@ package Server;
 
 import Handler.ServerHandler;
 import Interface.iSnake;
+import Model.Field;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -25,7 +26,6 @@ public class Server implements iSnake{
         
         ServerSocket listener = new ServerSocket(PORT);
         System.out.println("Inicializado el servidor!");
-        
         try{
             //bucle infinito que escucha la conexion al servidor
             while(true){

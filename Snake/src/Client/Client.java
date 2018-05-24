@@ -21,10 +21,10 @@ import java.net.UnknownHostException;
  */
 public class Client implements iSnake{
     
+    
     public static void main(String[] args) throws IOException{
         
         Socket s = null;
-        
         try {
             s = new Socket(HOST,PORT);
         } catch (UnknownHostException ex) {
@@ -36,7 +36,7 @@ public class Client implements iSnake{
         client.start();
         
         Field game = new Field();
-        Controller controller = new Controller(game);
+        Controller controller = new Controller(game, client);
         //BotController botController = new BotController(game);
         //new Table().setVisible(true);
     }

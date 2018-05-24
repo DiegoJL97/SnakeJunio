@@ -5,10 +5,15 @@
  */
 package Controller;
 
+import Comunication.Header;
+import Comunication.Packet;
+import Handler.ClientHandler;
 import Model.Field;
 import View.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -20,11 +25,13 @@ public class Controller implements KeyListener{
     private Field game;
     private Frame view;
     private BotController botController;
+    private ClientHandler handler;
     
-    public Controller(Field field){
+    public Controller(Field field, ClientHandler handler){
         this.game = field;
         this.view = new Frame(this);  
         this.botController = new BotController(field);
+        this.handler = handler;
     }
 
     public Field getGame() {
@@ -39,26 +46,40 @@ public class Controller implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
        int key = e.getKeyCode();
+       
+       
+       List<String> args = new ArrayList<>();
+       Header header = Header.DIR;
+       Packet packet = new Packet(header);
+       
        if(key == KeyEvent.VK_RIGHT && !game.getSnakePlayer().isLeft()){
            game.getSnakePlayer().setUp(false);
            game.getSnakePlayer().setDown(false);
            game.getSnakePlayer().setRight(true);
+           args.add("DERECHA");
        }
        if(key == KeyEvent.VK_LEFT && !game.getSnakePlayer().isRight()){
            game.getSnakePlayer().setUp(false);
            game.getSnakePlayer().setDown(false);
            game.getSnakePlayer().setLeft(true);
+           args.add("IZQUIERDA");
        }
        if(key == KeyEvent.VK_UP && !game.getSnakePlayer().isDown()){
            game.getSnakePlayer().setRight(false);
            game.getSnakePlayer().setLeft(false);
            game.getSnakePlayer().setUp(true);
+           args.add("ARRIBA");
        }
        if(key == KeyEvent.VK_DOWN && !game.getSnakePlayer().isUp()){
            game.getSnakePlayer().setRight(false);
            game.getSnakePlayer().setLeft(false);
            game.getSnakePlayer().setDown(true);
+           args.add("ABAJO");
        }
+       
+       packet.setArgs(args);
+       handler.sendMessage(packet.getCraftedPacket());
+       
     }
 
     @Override

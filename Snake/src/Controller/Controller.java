@@ -19,10 +19,12 @@ public class Controller implements KeyListener{
     
     private Field game;
     private Frame view;
+    private BotController botController;
     
     public Controller(Field field){
         this.game = field;
         this.view = new Frame(this);  
+        this.botController = new BotController(field);
     }
 
     public Field getGame() {
@@ -37,25 +39,25 @@ public class Controller implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
        int key = e.getKeyCode();
-       if(key == KeyEvent.VK_RIGHT && !game.isLeft()){
-           game.setUp(false);
-           game.setDown(false);
-           game.setRight(true);
+       if(key == KeyEvent.VK_RIGHT && !game.getSnakePlayer().isLeft()){
+           game.getSnakePlayer().setUp(false);
+           game.getSnakePlayer().setDown(false);
+           game.getSnakePlayer().setRight(true);
        }
-       if(key == KeyEvent.VK_LEFT && !game.isRight()){
-           game.setUp(false);
-           game.setDown(false);
-           game.setLeft(true);
+       if(key == KeyEvent.VK_LEFT && !game.getSnakePlayer().isRight()){
+           game.getSnakePlayer().setUp(false);
+           game.getSnakePlayer().setDown(false);
+           game.getSnakePlayer().setLeft(true);
        }
-       if(key == KeyEvent.VK_UP && !game.isDown()){
-           game.setRight(false);
-           game.setLeft(false);
-           game.setUp(true);
+       if(key == KeyEvent.VK_UP && !game.getSnakePlayer().isDown()){
+           game.getSnakePlayer().setRight(false);
+           game.getSnakePlayer().setLeft(false);
+           game.getSnakePlayer().setUp(true);
        }
-       if(key == KeyEvent.VK_DOWN && !game.isUp()){
-           game.setRight(false);
-           game.setLeft(false);
-           game.setDown(true);
+       if(key == KeyEvent.VK_DOWN && !game.getSnakePlayer().isUp()){
+           game.getSnakePlayer().setRight(false);
+           game.getSnakePlayer().setLeft(false);
+           game.getSnakePlayer().setDown(true);
        }
     }
 
@@ -63,5 +65,5 @@ public class Controller implements KeyListener{
     public void keyReleased(KeyEvent e) {
 
     }
-    
+
 }

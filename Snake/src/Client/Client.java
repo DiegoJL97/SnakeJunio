@@ -1,6 +1,7 @@
 package Client;
 
 
+import Controller.BotController;
 import Controller.Controller;
 import Model.Field;
 import View.Table;
@@ -21,6 +22,7 @@ public class Client {
         
         Field game = new Field();
         Controller controller = new Controller(game);
+        //BotController botController = new BotController(game);
         //new Table().setVisible(true);
         
     }

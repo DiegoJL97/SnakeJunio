@@ -13,35 +13,29 @@ import java.util.Random;
  * @author DiegoPC
  */
 public class Field {
+     
+    private Snake snakePlayer,snakeBot;
     
-    private BodyPart b;
-    private ArrayList<BodyPart> snake;
+    //private SnakeBot snakeBot;
     
     private Apple a;
     private ArrayList<Apple> apples;
-    
-    private Integer points;
     
     private Random r;
     
     private int ticks;
     
-    private boolean right = true, left = false, up = false, down = false;
-    
-    private int x = 10, y = 10;
-    private int size = 5; 
-    
     public Field(){
-        points = 0;
         r = new Random();
-        snake = new ArrayList<>();
+        snakePlayer = new Snake();
+        snakeBot = new Snake();
         apples = new ArrayList<>();
     }
     
     public void tick(){                     //ACTUALIZA
-        if(snake.size()==0){
-            b = new BodyPart(x,y);       //Si la serpiente no tiene nada, creamos una parte y se la añadimos
-            snake.add(b);
+        if(snakePlayer.getSnake().size()==0 && snakeBot.getSnake().size()==0){
+           snakePlayer.addToSnake();
+           snakeBot.addToSnake();
         }
         if(apples.size()==0){
             int x = r.nextInt(59);          //Porque hay 79 cuadrados
@@ -50,11 +44,17 @@ public class Field {
             apples.add(a);
         }
         for(int i = 0;i<apples.size();i++){
-            if(x == apples.get(i).getX() && y == apples.get(i).getY()){
-                size++;
+            if(snakePlayer.getX() == apples.get(i).getX() && snakePlayer.getY() == apples.get(i).getY()){
+                snakePlayer.addSize();
                 apples.remove(i);
                 i--;
-                points += 50;
+                snakePlayer.addPoints();
+            }
+            if(snakeBot.getX() == apples.get(i).getX() && snakeBot.getY() == apples.get(i).getY()){       //DESCOMENTAR PARA SNAKEBOT
+                snakeBot.addSize();
+                apples.remove(i);
+                i--;
+                snakeBot.addPoints();
             }
         }
         /*for(int i = 0;i<snake.size();i++){
@@ -67,62 +67,38 @@ public class Field {
         if(x < 0 || x > 69 || y < 0 || y > 69){
             stop();
         }*/
-        ticks++;
-        if(ticks>250000){
-            if(right) x++;
-            if(left) x--;                   //Dependiendo del booleano que esta activado pinta en una direccion u otra
-            if(up) y--;
-            if(down) y++;
+        ticks++;    
+        if(ticks>1000000){
+            if(snakePlayer.isRight()) snakePlayer.setX(snakePlayer.getX()+1);
+            if(snakePlayer.isLeft()) snakePlayer.setX(snakePlayer.getX()-1);                   //Dependiendo del booleano que esta activado pinta en una direccion u otra
+            if(snakePlayer.isUp()) snakePlayer.setY(snakePlayer.getY()-1);
+            if(snakePlayer.isDown()) snakePlayer.setY(snakePlayer.getY()+1);
+            
+            if(snakeBot.isRight()) snakeBot.setX(snakeBot.getX()+1);
+            if(snakeBot.isLeft()) snakeBot.setX(snakeBot.getX()-1);                   //Dependiendo del booleano que esta activado pinta en una direccion u otra
+            if(snakeBot.isUp()) snakeBot.setY(snakeBot.getY()-1);
+            if(snakeBot.isDown()) snakeBot.setY(snakeBot.getY()+1);
             
             ticks = 0;
             
-            b = new BodyPart(x,y);       //Creamos cuerpos (cuadrados) hacia la direccion que este activa
-            snake.add(b);
+            snakePlayer.addToSnake();
+            snakeBot.addToSnake();
             
-            if(snake.size()>size){          //Borramos el final de la serpiente
-                snake.remove(0);
+            if(snakePlayer.getSnake().size()>snakePlayer.getSize()){
+                snakePlayer.getSnake().remove(0);
+            }
+            if(snakeBot.getSnake().size()>snakeBot.getSize()){
+                snakeBot.getSnake().remove(0);
             }
         }
     }
 
-    public boolean isRight() {
-        return right;
+    public Snake getSnakePlayer() {
+        return snakePlayer;
     }
 
-    public boolean isLeft() {
-        return left;
-    }
-
-    public boolean isUp() {
-        return up;
-    }
-
-    public boolean isDown() {
-        return down;
-    }
-
-    public void setRight(boolean right) {
-        this.right = right;
-    }
-
-    public void setLeft(boolean left) {
-        this.left = left;
-    }
-
-    public void setUp(boolean up) {
-        this.up = up;
-    }
-
-    public void setDown(boolean down) {
-        this.down = down;
-    }
-
-    public ArrayList<BodyPart> getSnake() {
-        return snake;
-    }
-
-    public void setSnake(ArrayList<BodyPart> snake) {
-        this.snake = snake;
+    public void setSnakePlayer(Snake snakePlayer) {
+        this.snakePlayer = snakePlayer;
     }
 
     public ArrayList<Apple> getApples() {
@@ -132,5 +108,13 @@ public class Field {
     public void setApples(ArrayList<Apple> apples) {
         this.apples = apples;
     }
-    
+
+    public Snake getSnakeBot() {
+        return snakeBot;
+    }
+
+    public void setSnakeBot(Snake snakeBot) {
+        this.snakeBot = snakeBot;
+    }
+
 }

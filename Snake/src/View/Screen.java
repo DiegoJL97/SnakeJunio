@@ -50,9 +50,13 @@ public class Screen extends JPanel implements Runnable {        //JUEGO
         for(int i = 0;i < HEIGHT/10;i++){
             g.drawLine(0,i*10,WIDTH,i*10);                      //DIBUJA LAS LINEAS EN HORIZONTAL
         }
-        for(int i = 0;i < controller.getGame().getSnake().size();i++){                    //DIBUJA LA SERPIENTE
-            BodyPartView b = new BodyPartView(controller.getGame().getSnake().get(i).getX(),controller.getGame().getSnake().get(i).getY(),10);
+        for(int i = 0;i <controller.getGame().getSnakePlayer().getSnake().size();i++){                    //DIBUJA LA SERPIENTE
+            BodyPartView b = new BodyPartView(controller.getGame().getSnakePlayer().getSnake().get(i).getX(),controller.getGame().getSnakePlayer().getSnake().get(i).getY(),10);
             b.draw(g);
+        }
+        for(int i = 0;i <controller.getGame().getSnakeBot().getSnake().size();i++){                    //DIBUJA LA SERPIENTE
+            BodyPartView c = new BodyPartView(controller.getGame().getSnakeBot().getSnake().get(i).getX(),controller.getGame().getSnakeBot().getSnake().get(i).getY(),10);
+            c.draw(g);
         }
         for(int i = 0;i<controller.getGame().getApples().size();i++){
             AppleView a = new AppleView(controller.getGame().getApples().get(i).getX(),controller.getGame().getApples().get(i).getY(),10);

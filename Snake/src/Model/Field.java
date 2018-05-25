@@ -46,8 +46,8 @@ public class Field {
         for(int i = 0;i<apples.size();i++){
             if(snakePlayer.getX() == apples.get(i).getX() && snakePlayer.getY() == apples.get(i).getY()){
                 snakePlayer.addSize();
-                apples.remove(i);
-                i--;
+                //apples.remove(i);                 //AQUI ESTA EL PROBLEMA
+                //i--;
                 snakePlayer.addPoints();
             }
             if(snakeBot.getX() == apples.get(i).getX() && snakeBot.getY() == apples.get(i).getY()){       //DESCOMENTAR PARA SNAKEBOT
@@ -68,7 +68,7 @@ public class Field {
             stop();
         }*/
         ticks++;    
-        if(ticks>1000000){
+        if(ticks>2000000){
             if(snakePlayer.isRight()) snakePlayer.setX(snakePlayer.getX()+1);
             if(snakePlayer.isLeft()) snakePlayer.setX(snakePlayer.getX()-1);                   //Dependiendo del booleano que esta activado pinta en una direccion u otra
             if(snakePlayer.isUp()) snakePlayer.setY(snakePlayer.getY()-1);

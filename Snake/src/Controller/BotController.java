@@ -6,9 +6,6 @@
 package Controller;
 
 import Model.Field;
-import View.Screen;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,6 +24,16 @@ public class BotController extends Thread{
     }
     
     public void botMovement(){
+            if(game.getSnakeBot().getX() > game.getApples().get(0).getX()){
+                game.getSnakeBot().setUp(false);
+                game.getSnakeBot().setDown(false);
+                game.getSnakeBot().setLeft(true);
+            }
+            if(game.getSnakeBot().getX() < game.getApples().get(0).getX()){
+                game.getSnakeBot().setUp(false);
+                game.getSnakeBot().setDown(false);
+                game.getSnakeBot().setRight(true);    
+            }
             if(game.getSnakeBot().getX() == game.getApples().get(0).getX()){
                if((game.getSnakeBot().getY()<game.getApples().get(0).getY())){
                     game.getSnakeBot().setRight(false);
@@ -37,18 +44,6 @@ public class BotController extends Thread{
                     game.getSnakeBot().setRight(false);
                     game.getSnakeBot().setLeft(false);
                     game.getSnakeBot().setUp(true);
-                }
-            }
-            if(game.getSnakeBot().getY() == game.getApples().get(0).getY()){
-               if((game.getSnakeBot().getX()<game.getApples().get(0).getX())){
-                    game.getSnakeBot().setUp(false);
-                    game.getSnakeBot().setDown(false);
-                    game.getSnakeBot().setRight(true);
-                }
-                if((game.getSnakeBot().getY()>game.getApples().get(0).getY())){
-                    game.getSnakeBot().setUp(false);
-                    game.getSnakeBot().setDown(false);
-                    game.getSnakeBot().setLeft(true);
                 }
             }
     }

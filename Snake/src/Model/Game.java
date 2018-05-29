@@ -52,16 +52,25 @@ public class Game {
         for(int i = 0;i<apples.size();i++){
             if(snakePlayer.getX() == apples.get(i).getX() && snakePlayer.getY() == apples.get(i).getY()){
                 snakePlayer.addSize();
+                if(!apples.isEmpty()){
+                        apples.remove(i);
+                        i--;
+                        snakePlayer.addPoints();
+                        break;
+                    }
                 //apples.remove(i);                 //AQUI ESTA EL PROBLEMA
                 //i--;
                 snakePlayer.addPoints();
             }
             for(Snake snakeBot: bots){
                 if(snakeBot.getX() == apples.get(i).getX() && snakeBot.getY() == apples.get(i).getY()){       //DESCOMENTAR PARA SNAKEBOT
-                snakeBot.addSize();
-                apples.remove(i);
-                i--;
-                snakeBot.addPoints();
+                    snakeBot.addSize();
+                    if(!apples.isEmpty()){
+                        apples.remove(i);
+                        i--;
+                        snakeBot.addPoints();
+                        break;
+                    }
                 }
             }
             /*if(snakeBot.getX() == apples.get(i).getX() && snakeBot.getY() == apples.get(i).getY()){       //DESCOMENTAR PARA SNAKEBOT
@@ -82,7 +91,7 @@ public class Game {
             stop();
         }*/
         ticks++;    
-        if(ticks>2000000){
+        if(ticks>1500000){
             if(snakePlayer.isRight()) snakePlayer.setX(snakePlayer.getX()+1);
             if(snakePlayer.isLeft()) snakePlayer.setX(snakePlayer.getX()-1);                   //Dependiendo del booleano que esta activado pinta en una direccion u otra
             if(snakePlayer.isUp()) snakePlayer.setY(snakePlayer.getY()-1);
@@ -140,9 +149,7 @@ public class Game {
     public void setSnakeBot(Snake snakeBot) {
         this.snakeBot = snakeBot;
     }
-    
-    
-    
+
     public void changeDirection(SnakeDirection dir){
         
         switch(dir){
@@ -157,15 +164,10 @@ public class Game {
         }
         
     }
-    
-    
-    
 
     public ArrayList<Snake> getBots() {
         return bots;
     }
-    
-    
 
     public void setNumberBots(String bots) {
         Integer num  = Integer.parseInt(bots);

@@ -9,6 +9,7 @@ import Comunication.Header;
 import Comunication.Packet;
 import Handler.ClientHandler;
 import Model.Game;
+import Model.Snake;
 import View.Frame;
 import View.GeneralView;
 import java.awt.event.KeyEvent;
@@ -26,13 +27,16 @@ public class Controller implements KeyListener{
     private Game game;
     //private Frame view;
     private GeneralView generalView;
-    private BotController botController;
+    //private BotController botController;
     private ClientHandler handler;
     
     public Controller(Game field, ClientHandler handler){
         this.game = field;
         this.generalView = new GeneralView(this); 
-        this.botController = new BotController(field);
+        for(Snake snakebot: game.getBots()){
+            BotController botController = new BotController(field,snakebot);
+        }
+        //this.botController = new BotController(field);
         this.handler = handler;
     }
 

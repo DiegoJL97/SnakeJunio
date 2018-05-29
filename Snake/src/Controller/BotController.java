@@ -15,40 +15,43 @@ import Model.Snake;
 public class BotController extends Thread{
     
     private Game game;
-    
+    private Snake snake;
     private Thread thread;
     private Boolean running = false;
     
-    public BotController(Game game){
+    public BotController(Game game,Snake snakeBot){
         this.game = game;
+        this.snake = snakeBot;
         start();
     }
     
     public void botMovement(){
-        for(Snake snake: game.getBots())
-            if(snake.getX() > game.getApples().get(0).getX()){
-                snake.setUp(false);
-                snake.setDown(false);
-                snake.setLeft(true);
-            if(snake.getX() < game.getApples().get(0).getX()){
-                snake.setUp(false);
-                snake.setDown(false);
-                snake.setRight(true);    
+        if(game.getApples().isEmpty()) return;
+        
+        if(snake.getX() > game.getApples().get(0).getX()){
+            snake.setUp(false);
+            snake.setDown(false);
+            snake.setLeft(true);
+        }
+        if(snake.getX() < game.getApples().get(0).getX()){
+            snake.setUp(false);
+            snake.setDown(false);
+            snake.setRight(true);    
+        }
+        if(snake.getX() == game.getApples().get(0).getX()){
+           if((snake.getY()<game.getApples().get(0).getY())){
+                snake.setRight(false);
+                snake.setLeft(false);
+                snake.setDown(true);
             }
-            if(snake.getX() == game.getApples().get(0).getX()){
-               if((snake.getY()<game.getApples().get(0).getY())){
-                    snake.setRight(false);
-                    snake.setLeft(false);
-                    snake.setDown(true);
-                }
-                if((snake.getY()>game.getApples().get(0).getY())){
-                    snake.setRight(false);
-                    snake.setLeft(false);
-                    snake.setUp(true);
-                }
+            if((snake.getY()>game.getApples().get(0).getY())){
+                snake.setRight(false);
+                snake.setLeft(false);
+                snake.setUp(true);
             }
         }
     }
+
     
     @Override
     public void start(){    
@@ -62,9 +65,7 @@ public class BotController extends Thread{
         //botMovement();
         while(true){
             botMovement();
-            for(Snake snakeBot: game.getBots()){
-                System.out.println(snakeBot.getX());
-            }
+            System.out.println(snake.getX());
             System.out.println(game.getApples().get(0).getX());
         }
     }

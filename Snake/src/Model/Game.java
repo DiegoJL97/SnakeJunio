@@ -7,6 +7,7 @@ package Model;
 
 import Comunication.SnakeDirection;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Random;
  */
 public class Game {
      
-    private Snake snakePlayer,snakeBot;
+    private Snake snakePlayer;
     
     private ArrayList<Snake> bots;
     
@@ -62,7 +63,9 @@ public class Game {
                 //i--;
                 snakePlayer.addPoints();
             }
-            for(Snake snakeBot: bots){
+            
+            // ITERA ENTRE LOS BOTS PARA COMPROBAR SI SE COMEN LA MANZANA
+            for (Snake snakeBot : bots) {
                 if(snakeBot.getX() == apples.get(i).getX() && snakeBot.getY() == apples.get(i).getY()){       //DESCOMENTAR PARA SNAKEBOT
                     snakeBot.addSize();
                     if(!apples.isEmpty()){
@@ -72,13 +75,7 @@ public class Game {
                         break;
                     }
                 }
-            }
-            /*if(snakeBot.getX() == apples.get(i).getX() && snakeBot.getY() == apples.get(i).getY()){       //DESCOMENTAR PARA SNAKEBOT
-                snakeBot.addSize();
-                apples.remove(i);
-                i--;
-                snakeBot.addPoints();
-            }*/
+            } 
         }
         /*for(int i = 0;i<snake.size();i++){
             if(x == snake.get(i).getX() && y == snake.get(i).getY()){       //Si te chocas con tu propio cuerpo para el juego
@@ -142,13 +139,6 @@ public class Game {
         this.apples = apples;
     }
 
-    public Snake getSnakeBot() {
-        return snakeBot;
-    }
-
-    public void setSnakeBot(Snake snakeBot) {
-        this.snakeBot = snakeBot;
-    }
 
     public void changeDirection(SnakeDirection dir){
         

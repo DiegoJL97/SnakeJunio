@@ -30,6 +30,10 @@ public class BotController extends Thread{
     public void botMovement() throws InterruptedException{
         if(game.getApples().isEmpty()) return;
         
+        
+        //AQUI HACE EL MOVIMIENTO EVITANDO A LOS JUGADORES
+        
+        // AQUI HACE EL MOVIMIENTO DEPENDIENDO DE DONDE SALGA LA MANZANA
         if(snake.getX() > game.getApples().get(0).getX()){
             snake.setUp(false);
             snake.setDown(false);

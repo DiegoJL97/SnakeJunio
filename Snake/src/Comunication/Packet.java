@@ -5,7 +5,9 @@
  */
 package Comunication;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -50,5 +52,21 @@ public class Packet {
     public void setArgs(List<String> args) {
         this.args = args;
     }
+    
+    
+    
+    public static Packet getPacketFromString(String message){
+        
+        StringTokenizer tokenizer = new StringTokenizer(message);
+        
+        Header header = Header.valueOf(tokenizer.nextToken(";"));
+        
+        List<String> args = new ArrayList<>();
+        while(tokenizer.hasMoreTokens()){
+            args.add(tokenizer.nextToken(";"));
+        }
+        return new Packet(header,args);
+    }
+    
     
 }

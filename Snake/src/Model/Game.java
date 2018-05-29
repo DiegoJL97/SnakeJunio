@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Comunication.SnakeDirection;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,7 +13,7 @@ import java.util.Random;
  *
  * @author DiegoPC
  */
-public class Field {
+public class Game {
      
     private Snake snakePlayer,snakeBot;
     
@@ -25,7 +26,7 @@ public class Field {
     
     private int ticks;
     
-    public Field(){
+    public Game(){
         r = new Random();
         snakePlayer = new Snake();
         snakeBot = new Snake();
@@ -116,5 +117,25 @@ public class Field {
     public void setSnakeBot(Snake snakeBot) {
         this.snakeBot = snakeBot;
     }
+    
+    
+    
+    public void changeDirection(SnakeDirection dir){
+        
+        switch(dir){
+            
+            case ABAJO:
+                
+            case ARRIBA:
+                    
+            case DERECHA:
+                
+            case IZQUIERDA:
+        }
+        
+    }
+    
+    
+    
 
 }

@@ -7,6 +7,8 @@ package Handler;
 
 
 import Comunication.Header;
+import Comunication.Packet;
+import Comunication.SnakeDirection;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -46,9 +48,9 @@ public class ServerHandler extends Handler{
         playing = true;
 
         while(playing){
-            String line = "Cliente >> " + readMessage();
+            String line = readMessage();
             if(line == null) continue;
-            System.out.println(line);
+            applyChanges(line);
             if(line.equals(Header.FIN.toString()))
                 break;
         }
@@ -67,6 +69,27 @@ public class ServerHandler extends Handler{
         } catch (IOException ex) {
             System.err.println("Error cerrando los componentes!");;
         }
+        
+    }
+    
+    
+    
+    
+    public void applyChanges(String message){
+        
+        //transforma el string en un paquete
+        Packet packet = Packet.getPacketFromString(message);
+        System.out.println("paquete: " + packet.getCraftedPacket());
+        
+        //comprueba la cabecera del paquete
+        switch(packet.getHeader()){
+            
+            case DIR:
+                //hace la mierda de cambiar de direccion
+                SnakeDirection dir = SnakeDirection.valueOf(packet.getArgs().get(0));
+                //game.changeDirection(dir);
+        }
+        
         
     }
     

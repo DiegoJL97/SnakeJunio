@@ -8,7 +8,7 @@ package Client;
 import Controller.Controller;
 import Handler.ClientHandler;
 import Interface.iSnake;
-import Model.Field;
+import Model.Game;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class Client implements iSnake{
         ClientHandler client = new ClientHandler(s, new DataInputStream(s.getInputStream()), new DataOutputStream(s.getOutputStream()));
         client.start();
         
-        Field game = new Field();
+        Game game = new Game();
         Controller controller = new Controller(game, client);
         //BotController botController = new BotController(game);
         //new Table().setVisible(true);

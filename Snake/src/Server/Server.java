@@ -7,7 +7,7 @@ package Server;
 
 import Handler.ServerHandler;
 import Interface.iSnake;
-import Model.Field;
+import Model.Game;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;

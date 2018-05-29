@@ -8,7 +8,7 @@ package Controller;
 import Comunication.Header;
 import Comunication.Packet;
 import Handler.ClientHandler;
-import Model.Field;
+import Model.Game;
 import View.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -22,19 +22,19 @@ import java.util.List;
  */
 public class Controller implements KeyListener{
     
-    private Field game;
+    private Game game;
     private Frame view;
     private BotController botController;
     private ClientHandler handler;
     
-    public Controller(Field field, ClientHandler handler){
+    public Controller(Game field, ClientHandler handler){
         this.game = field;
         this.view = new Frame(this);  
         this.botController = new BotController(field);
         this.handler = handler;
     }
 
-    public Field getGame() {
+    public Game getGame() {
         return game;
     }
     

@@ -9,6 +9,7 @@ package View;
 
 
 import Controller.Controller;
+import Model.Snake;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -54,10 +55,13 @@ public class Screen extends JPanel implements Runnable {        //JUEGO
             BodyPartView b = new BodyPartView(controller.getGame().getSnakePlayer().getSnake().get(i).getX(),controller.getGame().getSnakePlayer().getSnake().get(i).getY(),10);
             b.draw(g);
         }
-        for(int i = 0;i <controller.getGame().getSnakeBot().getSnake().size();i++){                    //DIBUJA LA SERPIENTE
-            BodyPartView c = new BodyPartView(controller.getGame().getSnakeBot().getSnake().get(i).getX(),controller.getGame().getSnakeBot().getSnake().get(i).getY(),10);
-            c.draw(g);
+        for(Snake snake : controller.getGame().getBots()){
+            for(int i = 0;i <snake.getSnake().size();i++){                    //DIBUJA LA SERPIENTE
+                BodyPartView c = new BodyPartView(snake.getSnake().get(i).getX(),snake.getSnake().get(i).getY(),10);
+                c.draw(g);
+            }
         }
+
         for(int i = 0;i<controller.getGame().getApples().size();i++){
             AppleView a = new AppleView(controller.getGame().getApples().get(i).getX(),controller.getGame().getApples().get(i).getY(),10);
             a.draw(g);

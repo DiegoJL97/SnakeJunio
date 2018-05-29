@@ -10,6 +10,7 @@ import Comunication.Packet;
 import Handler.ClientHandler;
 import Model.Field;
 import View.Frame;
+import View.GeneralView;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -23,13 +24,15 @@ import java.util.List;
 public class Controller implements KeyListener{
     
     private Field game;
-    private Frame view;
+    //private Frame view;
+    private GeneralView generalView;
     private BotController botController;
     private ClientHandler handler;
     
     public Controller(Field field, ClientHandler handler){
         this.game = field;
-        this.view = new Frame(this);  
+        this.generalView = new GeneralView(this);
+        //this.view = new Frame(this);  
         this.botController = new BotController(field);
         this.handler = handler;
     }

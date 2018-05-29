@@ -16,6 +16,8 @@ public class Field {
      
     private Snake snakePlayer,snakeBot;
     
+    private ArrayList<Snake> bots;
+    
     //private SnakeBot snakeBot;
     
     private Apple a;
@@ -28,14 +30,17 @@ public class Field {
     public Field(){
         r = new Random();
         snakePlayer = new Snake();
-        snakeBot = new Snake();
+        bots = new ArrayList();
+        //snakeBot = new Snake();
         apples = new ArrayList<>();
     }
     
     public void tick(){                     //ACTUALIZA
-        if(snakePlayer.getSnake().size()==0 && snakeBot.getSnake().size()==0){
+        if(snakePlayer.getSnake().size()==0/* && snakeBot.getSnake().size()==0*/){
            snakePlayer.addToSnake();
-           snakeBot.addToSnake();
+           for(int i = 0; i<bots.size();i++){
+               bots.get(i).addToSnake();
+           }
         }
         if(apples.size()==0){
             int x = r.nextInt(59);          //Porque hay 79 cuadrados
@@ -50,12 +55,20 @@ public class Field {
                 //i--;
                 snakePlayer.addPoints();
             }
-            if(snakeBot.getX() == apples.get(i).getX() && snakeBot.getY() == apples.get(i).getY()){       //DESCOMENTAR PARA SNAKEBOT
+            for(Snake snakeBot: bots){
+                if(snakeBot.getX() == apples.get(i).getX() && snakeBot.getY() == apples.get(i).getY()){       //DESCOMENTAR PARA SNAKEBOT
                 snakeBot.addSize();
                 apples.remove(i);
                 i--;
                 snakeBot.addPoints();
+                }
             }
+            /*if(snakeBot.getX() == apples.get(i).getX() && snakeBot.getY() == apples.get(i).getY()){       //DESCOMENTAR PARA SNAKEBOT
+                snakeBot.addSize();
+                apples.remove(i);
+                i--;
+                snakeBot.addPoints();
+            }*/
         }
         /*for(int i = 0;i<snake.size();i++){
             if(x == snake.get(i).getX() && y == snake.get(i).getY()){       //Si te chocas con tu propio cuerpo para el juego
@@ -74,22 +87,32 @@ public class Field {
             if(snakePlayer.isUp()) snakePlayer.setY(snakePlayer.getY()-1);
             if(snakePlayer.isDown()) snakePlayer.setY(snakePlayer.getY()+1);
             
-            if(snakeBot.isRight()) snakeBot.setX(snakeBot.getX()+1);
+            for(Snake snakeBot: bots){
+                if(snakeBot.isRight()) snakeBot.setX(snakeBot.getX()+1);
+                if(snakeBot.isLeft()) snakeBot.setX(snakeBot.getX()-1);                   //Dependiendo del booleano que esta activado pinta en una direccion u otra
+                if(snakeBot.isUp()) snakeBot.setY(snakeBot.getY()-1);
+                if(snakeBot.isDown()) snakeBot.setY(snakeBot.getY()+1);
+                snakeBot.addToSnake();
+                if(snakeBot.getSnake().size()>snakeBot.getSize()){
+                    snakeBot.getSnake().remove(0);
+                }
+            }
+            /*if(snakeBot.isRight()) snakeBot.setX(snakeBot.getX()+1);
             if(snakeBot.isLeft()) snakeBot.setX(snakeBot.getX()-1);                   //Dependiendo del booleano que esta activado pinta en una direccion u otra
             if(snakeBot.isUp()) snakeBot.setY(snakeBot.getY()-1);
-            if(snakeBot.isDown()) snakeBot.setY(snakeBot.getY()+1);
+            if(snakeBot.isDown()) snakeBot.setY(snakeBot.getY()+1);*/
             
             ticks = 0;
             
             snakePlayer.addToSnake();
-            snakeBot.addToSnake();
+            //snakeBot.addToSnake();
             
             if(snakePlayer.getSnake().size()>snakePlayer.getSize()){
                 snakePlayer.getSnake().remove(0);
             }
-            if(snakeBot.getSnake().size()>snakeBot.getSize()){
+            /*if(snakeBot.getSnake().size()>snakeBot.getSize()){
                 snakeBot.getSnake().remove(0);
-            }
+            }*/
         }
     }
 
@@ -115,6 +138,20 @@ public class Field {
 
     public void setSnakeBot(Snake snakeBot) {
         this.snakeBot = snakeBot;
+    }
+
+    public ArrayList<Snake> getBots() {
+        return bots;
+    }
+    
+    
+
+    public void setNumberBots(String bots) {
+        Integer num  = Integer.parseInt(bots);
+        for(int i = 0; i<num; i++){
+            Snake bot = new Snake();
+            this.bots.add(bot);
+        }
     }
 
 }

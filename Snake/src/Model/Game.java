@@ -7,7 +7,6 @@ package Model;
 
 import Comunication.SnakeDirection;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -19,9 +18,7 @@ public class Game {
     private Snake snakePlayer;
     
     private ArrayList<Snake> bots;
-    
-    //private SnakeBot snakeBot;
-    
+        
     private Apple a;
     private ArrayList<Apple> apples;
     
@@ -38,18 +35,29 @@ public class Game {
     }
     
     public void tick(){                     //ACTUALIZA
-        if(snakePlayer.getSnake().size()==0/* && snakeBot.getSnake().size()==0*/){
+        if(snakePlayer.getSnake().isEmpty() /* && snakeBot.getSnake().size()==0*/ ){
            snakePlayer.addToSnake();
            for(int i = 0; i<bots.size();i++){
                bots.get(i).addToSnake();
            }
         }
-        if(apples.size()==0){
-            int x = r.nextInt(59);          //Porque hay 79 cuadrados
+        
+        if(apples.isEmpty()){
+            int x = 0;          //Porque hay 79 cuadrados
+            
+            
+            //numero menor que 10 se carga el juego JAXDLOL
+            while(x <= 10){
+                x = r.nextInt(59);
+            }
+            
             int y = r.nextInt(59);
             a = new Apple(x,y);
             apples.add(a);
         }
+        
+        
+        //ITERA ENTRE TODAS LAS MANZANAS PARA COMPROBAR SI EL JUGADOR O LOS BOTS LAS COGEN
         for(int i = 0;i<apples.size();i++){
             if(snakePlayer.getX() == apples.get(i).getX() && snakePlayer.getY() == apples.get(i).getY()){
                 snakePlayer.addSize();
@@ -77,6 +85,10 @@ public class Game {
                 }
             } 
         }
+        
+        
+        
+        // JUGADOR MUERTO SI SE CHOCA CONSIGO MISMO
         /*for(int i = 0;i<snake.size();i++){
             if(x == snake.get(i).getX() && y == snake.get(i).getY()){       //Si te chocas con tu propio cuerpo para el juego
                 if(i != snake.size()-1){
@@ -87,6 +99,8 @@ public class Game {
         if(x < 0 || x > 69 || y < 0 || y > 69){
             stop();
         }*/
+        
+        
         ticks++;    
         if(ticks>1500000){
             if(snakePlayer.isRight()) snakePlayer.setX(snakePlayer.getX()+1);

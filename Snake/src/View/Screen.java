@@ -55,13 +55,16 @@ public class Screen extends JPanel implements Runnable {        //JUEGO
             BodyPartView b = new BodyPartView(controller.getGame().getSnakePlayer().getSnake().get(i).getX(),controller.getGame().getSnakePlayer().getSnake().get(i).getY(),10);
             b.draw(g);
         }
-        for(Snake snake : controller.getGame().getBots()){
-            for(int i = 0;i <snake.getSnake().size();i++){                    //DIBUJA LA SERPIENTE
-                BodyPartView c = new BodyPartView(snake.getSnake().get(i).getX(),snake.getSnake().get(i).getY(),10);
+        
+        //dibuja los bots
+        for(Snake bot : controller.getGame().getBots()){
+            for(int i = 0;i <bot.getSnake().size();i++){                    
+                BodyPartView c = new BodyPartView(bot.getSnake().get(i).getX(),bot.getSnake().get(i).getY(),10);
                 c.draw(g);
             }
         }
 
+        //dibuja las manzanas
         for(int i = 0;i<controller.getGame().getApples().size();i++){
             AppleView a = new AppleView(controller.getGame().getApples().get(i).getX(),controller.getGame().getApples().get(i).getY(),10);
             a.draw(g);

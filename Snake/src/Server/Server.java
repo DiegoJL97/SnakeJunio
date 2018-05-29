@@ -21,9 +21,10 @@ import java.util.Objects;
  */
 public class Server implements iSnake{
     
+    public static Game game;
     
     public static void main(String[] args) throws IOException{
-        
+        game = new Game();
         ServerSocket listener = new ServerSocket(PORT);
         System.out.println("Inicializado el servidor!");
         try{

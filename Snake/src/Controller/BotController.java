@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Model.Field;
+import Model.Game;
 
 /**
  *
@@ -13,12 +13,12 @@ import Model.Field;
  */
 public class BotController extends Thread{
     
-    private Field game;
+    private Game game;
     
     private Thread thread;
     private Boolean running = false;
     
-    public BotController(Field game){
+    public BotController(Game game){
         this.game = game;
         start();
     }

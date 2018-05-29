@@ -7,6 +7,8 @@ package Controller;
 
 import Model.Game;
 import Model.Snake;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,31 +27,36 @@ public class BotController extends Thread{
         start();
     }
     
-    public void botMovement(){
+    public void botMovement() throws InterruptedException{
         if(game.getApples().isEmpty()) return;
         
         if(snake.getX() > game.getApples().get(0).getX()){
             snake.setUp(false);
             snake.setDown(false);
             snake.setLeft(true);
+            sleep(10);
         }
         if(snake.getX() < game.getApples().get(0).getX()){
             snake.setUp(false);
             snake.setDown(false);
-            snake.setRight(true);    
+            snake.setRight(true); 
+            sleep(10);
         }
         if(snake.getX() == game.getApples().get(0).getX()){
            if((snake.getY()<game.getApples().get(0).getY())){
                 snake.setRight(false);
                 snake.setLeft(false);
                 snake.setDown(true);
+                sleep(10);
             }
             if((snake.getY()>game.getApples().get(0).getY())){
                 snake.setRight(false);
                 snake.setLeft(false);
                 snake.setUp(true);
+                sleep(10);
             }
         }
+        sleep(10);
     }
 
     
@@ -64,9 +71,16 @@ public class BotController extends Thread{
     public void run(){
         //botMovement();
         while(true){
-            botMovement();
-            System.out.println(snake.getX());
-            System.out.println(game.getApples().get(0).getX());
+            try {
+                botMovement();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(BotController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                sleep(10);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(BotController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     

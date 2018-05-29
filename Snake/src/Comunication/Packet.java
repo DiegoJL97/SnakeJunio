@@ -30,7 +30,7 @@ public class Packet {
     }
     
     public String getCraftedPacket(){
-        String packet = header.toString() + "; ";
+        String packet = header.toString() + ";";
         for(String arg : args){
             packet = packet.concat(arg) + ";";
         }
